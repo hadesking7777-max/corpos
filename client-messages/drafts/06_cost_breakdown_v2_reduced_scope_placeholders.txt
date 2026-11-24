@@ -1,0 +1,48 @@
+Thank you. Below is the breakdown.
+
+Both projects will be staffed from our existing team, the same team that delivers the proxy modules. To keep the budget as low as possible, we reviewed the scope again and reduced the effort:
+- P04, P11 (Blue Team-owned): our part is design and tool support only. P04 0.5 → 0.2, P11 0.8 → 0.4 M/M
+- Project A C02: we built the existing modules, so output adjustment needs less effort. 0.8 → 0.5 M/M
+- Project A C01: one project manager covers both projects. 0.8 → 0.5 M/M
+- R12: NPU porting becomes an optional item (+1.0 M/M if required). 3.5 → 2.5 M/M
+The increases for data, cluster scripts and support remain, as they cover real delivery risks.
+
+Revised totals:
+- Project A: 10.2 M/M
+- Project B: 47.75 M/M
+- Total: 57.95 M/M
+
+Cost is calculated on effort (M/M × monthly rate). Team members are billed only for the months they work on the project.
+
+Project A – Secure Collaboration Platform (Phase 1)
+- Duration: 8 months
+- Team: 2 engineers + shared project manager
+  1 DevOps / security engineer, months 1–8: 5.3 M/M
+  1 test automation engineer, months 4–8: 4.4 M/M
+  Project manager (shared with Project B): 0.5 M/M
+- Total effort: 10.2 M/M
+- Monthly cost per person: [RATE]
+- Total cost: [TOTAL A]
+- Phase 2 maintenance (after month 8): 0.7 M/M per month = [MAINT] per month
+
+Project B – Security-Specialized Model
+- Duration: 12 months (9 months development + 3 months technical support)
+- Team: 8 people at peak (months 3–4), about 5 on average in months 1–9, about 1 in months 10–12
+  3 data engineers, months 1–4 (1 continues part-time in months 5–7): 12.25 M/M
+  2 ML engineers, months 3–9: 13.0 M/M
+  2 MLOps engineers, months 2–9, plus support in months 10–12: 15.5 M/M
+  Project manager / tech lead, part-time, months 1–12: 7.0 M/M
+- Total effort: 47.75 M/M
+- Monthly cost per person: [RATE]
+- Total cost: [TOTAL B]
+
+Total for both projects: 57.95 M/M = [TOTAL] (excluding Phase 2 maintenance)
+When both projects overlap, the peak is 10 people, which matches our current team size.
+
+Optional (not included above):
+- NPU porting for R12: +1.0 M/M = [NPU COST]
+
+Not included, quoted separately if needed:
+- Short-term GPU rental for recipe validation (R05)
+- CPU and storage for TB-scale data processing (R02)
+- Training compute, which runs on the Blue Team's own cloud

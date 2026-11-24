@@ -1,0 +1,34 @@
+Thank you. Below is the breakdown with budget (USD).
+
+The full scope and effort from our review are kept: Project A 11.5 M/M and Project B 48.75 M/M, 60.25 M/M in total. To keep the budget as low as possible, we have set our monthly rates at our minimum.
+
+Monthly rates per person:
+- Engineer (DevOps, test automation, data): $1,200
+- ML / MLOps engineer: $2,000
+- Project manager / tech lead: $1,200
+Cost = M/M × monthly rate. Team members are billed only for the months they work on the project.
+
+Project A – Secure Collaboration Platform (Phase 1)
+Duration: 8 months. Team: 2 engineers + shared project manager
+- 1 DevOps / security engineer, months 1–8: 5.9 M/M × $1,200 = $7,080
+- 1 test automation engineer, months 4–8: 4.8 M/M × $1,200 = $5,760
+- Project manager (shared with Project B): 0.8 M/M × $1,200 = $960
+Total: 11.5 M/M = $13,800
+Phase 2 maintenance (after month 8): 0.7 M/M per month = $840 per month
+
+Project B – Security-Specialized Model
+Duration: 12 months (9 months development + 3 months technical support)
+Team: 8 people at peak (months 3–4), about 5 on average in months 1–9, about 1 in months 10–12
+- 3 data engineers, months 1–4 (1 continues part-time in months 5–7): 12.25 M/M × $1,200 = $14,700
+- 2 ML engineers, months 3–9: 13.0 M/M × $2,000 = $26,000
+- 2 MLOps engineers, months 2–9, plus support in months 10–12: 16.5 M/M × $2,000 = $33,000
+- Project manager / tech lead, part-time, months 1–12: 7.0 M/M × $1,200 = $8,400
+Total: 48.75 M/M = $82,100
+NPU porting (R12) is included.
+
+Total for both projects: 60.25 M/M = $95,900 (excluding Phase 2 maintenance)
+
+Not included, quoted separately if needed:
+- Short-term GPU rental for recipe validation (R05)
+- CPU and storage for TB-scale data cleaning and deduplication (R02)
+- Training compute, which runs on the Blue Team's own cloud

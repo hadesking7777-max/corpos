@@ -1,0 +1,18 @@
+[2/5] Project A
+
+P02 (0.5, Low) -> 0.8, Med
+Installing a full pipeline (repo, build, static analysis, secret scanning, tests) in an environment we can't see, with remote support only, usually takes several rounds.
+
+P03
+If the messenger is Telegram, the Telegram Bot API makes notifications simple. But the delivery point needs outbound HTTPS to api.telegram.org. If the network is closed, we need a relay or an email fallback. Please confirm.
+
+P04 / P11
+The owner is Blue Team, but 0.5 + 0.8 M/M is in our total. Please confirm this is only our support effort, otherwise it is double-counted.
+
+P07 / P09
+The effort is OK only if we limit scope: API-level tests for a fixed set of core scenarios, and manual checklists for the AI/M365 UI flows. Full UI automation of frequently changing web services will go over 2.9 M/M plus 0.4/month maintenance.
+
+P12 (0.6, Med) -> 1.0, High
+Reproducible builds for OpenResty plus C modules (pinned toolchains, timestamps, build paths) usually take several iterations.
+
+Schedule: month 7 runs P09, P10, P11 and P12 in parallel (~2.5 FTE) while Project B is near its peak. Suggest moving P12 to months 5-6, or P11 to month 8.

@@ -1,0 +1,27 @@
+[3/5] Project B: effort and schedule
+
+R01 (5.0) -> 6.0
+The target language is only confirmed at kickoff, and public log/command data is scarce, so we will need synthetic data. At 1T tokens, licenses can only be checked per dataset, not per document. We need an agreed policy with the Blue Team.
+
+R02 (3.0) -> 4.0
+Dedup and PII removal at TB scale. The CPU/storage infrastructure for this is not budgeted anywhere. Who provides it?
+
+R02/R03: the tokenizer (m3-4) trains on cleaned data, but cleaning only ends in m4. Suggest training the tokenizer on an early cleaned subset.
+
+R04/D2: D2 is due in m4 but R04 runs to m5. Either move D2 to m5 or finish R04 in m4.
+
+R05: depends on our hardware (see Q1). Section 9.2 says months 1-4, Section 7 says 3-4. Please align them.
+
+R13 (3.0) -> 3.5
+Scripts for a cluster we can't access need extra test cycles. Also, B01 (Blue Team cluster setup, m3-4) depends on R13 (m2-5), so the setup scripts must be ready by m3.
+
+R07: the post-training recipe is designed before the base model exists, so it can only be validated on small models. Are we accepting that risk?
+
+R12: Med -> High if NPU support is in scope (vendor SDKs). If NPU stays optional (B07), Med is fine.
+
+R16 (1.0) -> 1.5
+The Blue Team runs post-training in months 9-12 with a non-expert operator, so support load will peak exactly then.
+
+C02 (1.0) -> 1.5, unless acceptance criteria get numeric thresholds.
+
+Staffing: spread evenly, Project B needs ~7 FTE in months 3-4 and again in month 8, but only ~2 in month 1. Please check we can staff those peaks.

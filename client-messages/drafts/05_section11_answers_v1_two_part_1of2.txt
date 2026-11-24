@@ -1,0 +1,27 @@
+[5/5 – Part 1 of 2] Answers to Section 11
+
+**Q1 – Hardware for Recipe Validation (R05)**
+
+Our available hardware is still to be confirmed. Regardless of the final configuration, validating the recipe at the full 1.5B parameter scale will most likely require short-term GPU rental. I recommend including this in the budget from the beginning.
+
+**Q2 – Experience with Remote Cluster Scripts**
+
+We have relevant experience building deployment automation, monitoring and recovery workflows for distributed systems on Kubernetes and cloud infrastructure, including AWS: automated health checks, service restarts, failure detection, retry mechanisms and centralized logging for remote troubleshooting.
+
+We have not yet built auto-recovery for a GPU training cluster specifically. The new parts are training-specific failures: inter-GPU communication (NCCL) hangs, GPU errors, checkpoint resume and rollback on loss spikes. The underlying principles are familiar, and we can apply that experience to pre-flight checks, dry-run validation, automated recovery and diagnostic log collection.
+
+Since we will not have access to the target cluster, we would validate the scripts on our own or rented infrastructure first, then provide clear execution instructions and automatically generated diagnostic bundles, so the Blue Team operator can report issues and we can resolve them efficiently.
+
+**Q3 – Training Feasibility and Performance**
+
+The proposed setup is achievable using Megatron-Core or torchtitan. For a 1.5B model, data parallelism (FSDP or ZeRO) is sufficient without tensor parallelism, combined with FlashAttention and BF16.
+
+A reasonable planning range is 30–40% MFU, roughly 33–44K tokens per second per H100 GPU, subject to benchmarking. For planning, I suggest 35% MFU and approximately 4.5–5 weeks on 16 × H100. This should be validated against the final architecture, sequence length and training configuration.
+
+**Q4 – Use of Open-Source Frameworks**
+
+I recommend using an established open-source framework for distributed training while implementing and maintaining the model definition in-house (architecture code only, no external weights). We should track lineage from day one: dataset versions, training configurations, checkpoints and reproducibility metadata. This approach needs Blue Team agreement before implementation.
+
+**Q5 – Dataset Availability and 1T Token Target**
+
+Reaching 1T tokens in total is feasible, since English web content and permissively licensed code datasets are widely available. The bottlenecks are target-language content and specialized log, command and security data. These portions may need repeated epochs, carefully generated synthetic data and additional quality filtering, while monitoring duplication and overfitting.

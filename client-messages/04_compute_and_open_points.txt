@@ -1,0 +1,19 @@
+[4/5] Compute (Section 9) and points to confirm
+
+Compute:
+- The 6 x N x D formula leaves out attention. For a 1.5B model at 4K sequence length, attention adds ~20-30% compute, so "40% MFU" really needs ~50% hardware utilization. Suggest planning at 35%: ~11,500 GPU-hours, ~4.5-5 weeks on 16 x H100.
+- 989 TFLOPS is the H100 SXM figure. If the cloud uses PCIe H100, peak is ~25% lower. Please confirm the instance type.
+- With Adam optimizer state, a checkpoint is ~21-24 GB, not 20 GB.
+- Storage read throughput is not a bottleneck: only ~3 MB/s is needed.
+
+To confirm with the Blue Team before the proposal:
+1. Data transfer: who runs the full data pipeline, and how do ~2-4 TB of tokenized data reach their cloud?
+2. Model access: will we receive checkpoints or weights? D4, D5 and R11 seem to need them.
+3. Acceptance: numeric thresholds for D4 (metrics) and D6 (latency/throughput).
+4. "In-house": may we use open-source training frameworks (code only, no weights)?
+5. Synthetic data: may we generate training data with external LLMs?
+6. Long-context extension (16K-32K, Section 9.2): which module owns it?
+7. Target language: we need it early for R01 and R03.
+8. Expectations: a 1.5B model trained from scratch on 1T tokens will be weaker than open-weight models of the same size. The proposal should say so.
+
+Also note: R02 removes PII from the training data, but sensitive-data detection is a target task. That capability will have to come from post-training or synthetic data.

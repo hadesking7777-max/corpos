@@ -1,0 +1,11 @@
+Hi [name], here is my review of the internal review draft (Project A and Project B). I'll send it in 5 parts, by module ID as requested.
+
+Summary:
+- All totals and compute figures check out arithmetically.
+- The plan is feasible overall, but some modules look under-estimated: data work (R01, R02), remote training support (R13, R16, C02) and two Project A items (P02, P12).
+- Project B has several dependency conflicts in months 3-5.
+- Some points need confirming with the Blue Team before the proposal: data transfer, model access, numeric acceptance criteria.
+
+Proposed totals:
+- Project A: 10.8 -> 11.5 M/M
+- Project B: 45.25 -> 48.75 M/M

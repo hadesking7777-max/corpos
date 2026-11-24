@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Section 11 Answers</title>
+<style>
+  @page { size: A4; margin: 13mm 15mm 12mm 15mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; font-size: 9.6pt; line-height: 1.34; color: #111; margin: 0; background: #fff; }
+  header { border-bottom: 2px solid #111; padding-bottom: 6pt; margin-bottom: 10pt; }
+  h1 { font-size: 15pt; margin: 0 0 2pt 0; }
+  .meta { font-size: 9pt; color: #444; }
+  h2 { font-size: 10.2pt; margin: 7pt 0 1.5pt 0; break-after: avoid; }
+  h2 .id { display: inline-block; min-width: 24pt; }
+  p { margin: 0 0 3pt 0; }
+  section { break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; margin-top: 3pt; font-size: 9.5pt; }
+  th, td { border: 1px solid #999; padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #eee; }
+  td.num { white-space: nowrap; }
+  .summary { margin-top: 7pt; padding: 6pt 8pt; border: 1px solid #111; }
+  .sign { margin-top: 6pt; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Answers to Section 11 — Questions for the Dev Team</h1>
+  <div class="meta">Re: Dev Team Internal Review — Project A &amp; Project B &nbsp;|&nbsp; 20 November 2026</div>
+</header>
+
+<section>
+<h2><span class="id">Q1</span>Hardware for Recipe Validation (R05)</h2>
+<p>Our available hardware is still to be confirmed. Validating the recipe at the full 1.5B scale will most likely require short-term GPU rental, which should be budgeted from the start.</p>
+</section>
+
+<section>
+<h2><span class="id">Q2</span>Experience with Remote Cluster Scripts</h2>
+<p>We have experience with deployment automation, monitoring and recovery for distributed systems on Kubernetes and AWS: health checks, automatic restarts, failure detection, retries and centralized logging. GPU-training-specific failures are new to us: NCCL communication hangs, GPU errors, checkpoint resume and loss-spike rollback. Since we will not have access to the target cluster, we will validate the scripts on our own or rented infrastructure first, and ship pre-flight checks, a dry-run mode and automatic diagnostic bundles for remote troubleshooting.</p>
+</section>
+
+<section>
+<h2><span class="id">Q3</span>Training Feasibility and Performance</h2>
+<p>Achievable with Megatron-Core or torchtitan. A 1.5B model needs only data parallelism (FSDP/ZeRO), with FlashAttention and BF16. Realistic range: 30–40% MFU, ~33–44K tokens/s per H100, subject to benchmarking. I suggest planning at 35% MFU: ~4.5–5 weeks on 16 × H100.</p>
+</section>
+
+<section>
+<h2><span class="id">Q4</span>Use of Open-Source Frameworks</h2>
+<p>Use an established open-source framework for distributed training, implement the model definition in-house (code only, no external weights), and track lineage from day one (data versions, configs, checkpoints). This needs Blue Team agreement.</p>
+</section>
+
+<section>
+<h2><span class="id">Q5</span>Dataset Availability (1T Tokens)</h2>
+<p>Feasible in total: English web and permissively licensed code are plentiful. The bottlenecks are target-language and log/command/security data, which may need repeated epochs, synthetic data and extra quality filtering.</p>
+</section>
+
+<section>
+<h2><span class="id">Q6</span>Prompt Injection and Hallucination Testing</h2>
+<p><strong>Injection:</strong> hide instructions in event fields (HTTP headers, filenames, commands). A test passes if the model treats them as data and the classification and JSON schema stay unchanged; canary strings detect instruction following.</p>
+<p><strong>Hallucination:</strong> every output entity must be traceable to the input, the model should abstain when information is missing, and answers should stay consistent across paraphrases. Constrained decoding enforces valid JSON.</p>
+</section>
+
+<section>
+<h2><span class="id">Q7</span>Web-Service Test Automation (P07, P09)</h2>
+<p>With 2.9 M/M plus 0.4 M/M per month of maintenance, full UI automation of frequently changing web services is not sustainable. I propose automating the core scenarios at API level and covering the rest with manual checklists.</p>
+</section>
+
+<section>
+<h2><span class="id">Q8</span>Messenger Notifications (P03)</h2>
+<p>Telegram Bot API over outbound HTTPS. This requires the delivery point in the Blue Team network to reach api.telegram.org; otherwise a relay or email fallback, with retries and failure logging.</p>
+</section>
+
+<section>
+<h2><span class="id">Q9</span>Most Underestimated Areas</h2>
+<table>
+  <tr><th style="width:24%">Modules</th><th>Reason</th><th style="width:22%">Proposed effort</th></tr>
+  <tr><td>1. R01 + R02<br>Data collection and processing</td><td>Target language confirmed only at kickoff; public log/command data is scarce; TB-scale processing infrastructure is not budgeted.</td><td class="num">R01: 5.0 → 6.0 M/M<br>R02: 3.0 → 4.0 M/M</td></tr>
+  <tr><td>2. R13 + R06<br>Remote cluster support</td><td>Scripts must work on a cluster we cannot access; Blue Team cluster setup (B01, months 3–4) depends on them.</td><td class="num">R13: 3.0 → 3.5 M/M</td></tr>
+  <tr><td>3. R16 / C02<br>Support and re-delivery</td><td>A non-expert operator runs post-training in months 9–12; without numeric acceptance criteria, re-delivery is open-ended.</td><td class="num">R16: 1.0 → 1.5 M/M<br>C02: 1.0 → 1.5 M/M</td></tr>
+</table>
+</section>
+
+<div class="summary">
+<strong>Overall:</strong> the approach is technically feasible. Priorities: confirm infrastructure, benchmark training early, secure the data pipeline, and define acceptance criteria and support boundaries up front.
+</div>
+
+<p class="sign">Happy to discuss any point.<br>Best regards</p>
+</body>
+</html>

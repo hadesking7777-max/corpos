@@ -1,0 +1,29 @@
+[5/5 – Part 2 of 2]
+
+**Q6 – Prompt Injection and Hallucination Testing**
+
+Prompt injection: we will place malicious or misleading instructions inside event fields such as HTTP headers, filenames and command strings. A test passes when the model treats these fields strictly as data, keeps the correct classification and maintains the required JSON schema. Canary strings will detect unintended instruction following.
+
+Hallucination: every extracted entity must be traceable to the input, and when required information is missing, the model should abstain rather than invent details. We will also check consistency across paraphrased inputs. Constrained decoding will enforce valid JSON, with separate checks for semantic correctness.
+
+**Q7 – Web-Service Test Automation (P07, P09)**
+
+With the current effort (P07 + P09 = 2.9 M/M, plus 0.4 M/M per month of maintenance), full UI automation of frequently changing web services is not sustainable. I propose automating the core scenarios at API level (expected outputs, schema validation, error handling and critical integration flows) and covering less frequent or environment-specific scenarios with manual verification checklists.
+
+**Q8 – Messenger Notifications (P03)**
+
+I recommend the Telegram Bot API over outbound HTTPS. This requires the delivery point in the Blue Team's environment to be allowed outbound access to api.telegram.org. If that is restricted, we can provide a relay or an email-based fallback. The implementation will include retry handling, timeouts and clear failure logging.
+
+**Q9 – Most Underestimated Areas**
+
+1. **R01 + R02 – Data Collection and Processing:** The target language is only confirmed at kickoff, public log/command data is scarce, and the infrastructure for TB-scale deduplication and PII removal is not budgeted. Proposed: R01 5.0 → 6.0, R02 3.0 → 4.0 M/M.
+
+2. **R13 + R06 – Remote Cluster Support:** The scripts must work on a cluster we cannot access or test directly, and the Blue Team's cluster setup (B01, months 3–4) depends on them. Proposed: R13 3.0 → 3.5 M/M.
+
+3. **R16 / C02 – Post-Handover Support and Re-delivery:** The Blue Team runs post-training in months 9–12 with a non-expert operator, so support load peaks right then. Without numeric acceptance criteria, re-delivery cycles are open-ended. Proposed: R16 1.0 → 1.5, C02 1.0 → 1.5 M/M.
+
+Overall, I believe the proposed approach is technically feasible. The priorities are confirming infrastructure, validating training performance early, establishing a reliable data pipeline, and clearly defining the remote deployment and support process, including acceptance criteria and support boundaries.
+
+I'm happy to discuss any of these points and align on next steps.
+
+Best regards

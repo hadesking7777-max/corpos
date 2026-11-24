@@ -1,0 +1,36 @@
+[5/5] Answers to Section 11
+
+Q1 – Hardware for Recipe Validation (R05)
+Our available hardware is still to be confirmed. Validating the recipe at the full 1.5B scale will most likely require short-term GPU rental, which should be budgeted from the start.
+
+Q2 – Experience with Remote Cluster Scripts
+We have experience with deployment automation, monitoring and recovery for distributed systems on Kubernetes and AWS: health checks, automatic restarts, failure detection, retries and centralized logging. GPU-training-specific failures are new to us: NCCL communication hangs, GPU errors, checkpoint resume and loss-spike rollback. Since we will not have access to the target cluster, we will validate the scripts on our own or rented infrastructure first, and ship pre-flight checks, a dry-run mode and automatic diagnostic bundles for remote troubleshooting.
+
+Q3 – Training Feasibility and Performance
+Achievable with Megatron-Core or torchtitan. A 1.5B model needs only data parallelism (FSDP/ZeRO), with FlashAttention and BF16. Realistic range: 30–40% MFU, ~33–44K tokens/s per H100, subject to benchmarking. I suggest planning at 35% MFU: ~4.5–5 weeks on 16 × H100.
+
+Q4 – Use of Open-Source Frameworks
+Use an established open-source framework for distributed training, implement the model definition in-house (code only, no external weights), and track lineage from day one (data versions, configs, checkpoints). This needs Blue Team agreement.
+
+Q5 – Dataset Availability (1T Tokens)
+Feasible in total: English web and permissively licensed code are plentiful. The bottlenecks are target-language and log/command/security data, which may need repeated epochs, synthetic data and extra quality filtering.
+
+Q6 – Prompt Injection and Hallucination Testing
+Injection: hide instructions in event fields (HTTP headers, filenames, commands). A test passes if the model treats them as data and the classification and JSON schema stay unchanged; canary strings detect instruction following. Hallucination: every output entity must be traceable to the input, the model should abstain when information is missing, and answers should stay consistent across paraphrases. Constrained decoding enforces valid JSON.
+
+Q7 – Web-Service Test Automation (P07, P09)
+With 2.9 M/M plus 0.4 M/M per month of maintenance, full UI automation of frequently changing web services is not sustainable. I propose automating the core scenarios at API level and covering the rest with manual checklists.
+
+Q8 – Messenger Notifications (P03)
+Telegram Bot API over outbound HTTPS. This requires the delivery point in the Blue Team network to reach api.telegram.org; otherwise a relay or email fallback, with retries and failure logging.
+
+Q9 – Most Underestimated Areas
+1. R01 + R02 (data): the target language is confirmed only at kickoff, public log/command data is scarce, and TB-scale processing infrastructure is not budgeted. Proposed: R01 5.0 → 6.0, R02 3.0 → 4.0 M/M.
+2. R13 + R06 (remote cluster support): the scripts must work on a cluster we cannot access, and B01 (months 3–4) depends on them. Proposed: R13 3.0 → 3.5 M/M.
+3. R16 / C02 (support and re-delivery): a non-expert operator runs post-training in months 9–12, and without numeric acceptance criteria re-delivery is open-ended. Proposed: R16 1.0 → 1.5, C02 1.0 → 1.5 M/M.
+
+Overall, the approach is technically feasible. Priorities: confirm infrastructure, benchmark training early, secure the data pipeline, and define acceptance criteria and support boundaries up front.
+
+Happy to discuss any point.
+
+Best regards

@@ -1,0 +1,31 @@
+Thank you. Below is the breakdown. Cost is based on effort (M/M), because some team members are part-time in certain months, so the total is M/M × monthly rate rather than people × months.
+
+Project A – Secure Collaboration Platform (Phase 1)
+- Duration: 8 months
+- Team: 2 people
+  1 DevOps / security engineer, full-time, months 1–8: 8.0 M/M
+  1 test automation engineer, part-time, mainly months 4–8: 3.5 M/M
+- Total effort: 11.5 M/M
+- Monthly cost per person: [RATE]
+- Total cost: 11.5 × [RATE] = [TOTAL A]
+- Phase 2 maintenance (after month 8): 0.7 M/M per month = [0.7 × RATE] per month
+
+Project B – Security-Specialized Model
+- Duration: 12 months (9 months development + 3 months technical support)
+- Team: 8 people at peak (months 3–4), about 5 on average in months 1–9, about 1 in months 10–12
+  3 data engineers, months 1–4 (1 continues part-time in months 5–7): 12.25 M/M
+  2 ML engineers, months 3–9: 13.0 M/M
+  2 ML infrastructure / MLOps engineers, months 2–9, plus support in months 10–12: 16.5 M/M
+  1 project manager / tech lead, part-time, months 1–12: 7.0 M/M
+- Total effort: 48.75 M/M
+- Monthly cost per person: [RATE]
+- Total cost: 48.75 × [RATE] = [TOTAL B]
+
+Total for both projects: 60.25 M/M = [TOTAL A + B] (excluding Project A Phase 2 maintenance)
+
+Not included in the figures above, to be quoted separately:
+- Short-term GPU rental for recipe validation (R05)
+- CPU and storage for TB-scale data cleaning and deduplication (R02)
+- Training compute, which runs on the Blue Team's own cloud
+
+The team structure follows the module schedule in the review document. If the scope or schedule changes, the headcount can be adjusted while keeping the total effort.
